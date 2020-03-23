@@ -15,5 +15,8 @@
     <sql id="Base_Column_List">
         id, name, password, type, del_flag
     </sql>
+    <select id="selUser" resultType="com.suzhou.cabinet.entity.User">
+        select * from cabinet.user where id=#{loginUser.id} and password=#{loginUser.password}
+    </select>
 
 </mapper>

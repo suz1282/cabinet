@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -23,7 +24,7 @@ public class Cabinet extends Model<Cabinet> {
 
     private String name;
 
-    private LocalDateTime createTime;
+    private Date createTime;
 
     private String regionId;
 

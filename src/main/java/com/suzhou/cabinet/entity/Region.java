@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -29,9 +30,9 @@ public class Region extends Model<Region> {
 
     private String delFlag;
 
-    private LocalDateTime createTime;
+    private Date createTime;
 
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     private String isDirectory;
 

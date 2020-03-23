@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -28,13 +29,13 @@ public class Announcement extends Model<Announcement> {
 
     private String content;
 
-    private LocalDateTime startTime;
+    private Date startTime;
 
-    private LocalDateTime endTime;
+    private Date endTime;
 
-    private LocalDateTime createTime;
+    private Date createTime;
 
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     private String delFlag;
 

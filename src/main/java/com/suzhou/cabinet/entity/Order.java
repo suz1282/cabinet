@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -23,7 +24,7 @@ public class Order extends Model<Order> {
 
     private String boxId;
 
-    private LocalDateTime arrivalTime;
+    private Date arrivalTime;
 
     private String courierId;
 
