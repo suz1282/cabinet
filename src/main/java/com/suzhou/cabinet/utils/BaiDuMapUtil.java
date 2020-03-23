@@ -1,6 +1,6 @@
 package com.suzhou.cabinet.utils;
 
-import com.baomidou.mybatisplus.toolkit.StringUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
