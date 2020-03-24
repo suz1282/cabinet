@@ -18,5 +18,50 @@
     <sql id="Base_Column_List">
         id, name, parent_id, boundary_point, del_flag, create_time, update_time, is_directory
     </sql>
+    <update id="delRegionById" parameterType="string">
+        update region set del_flag = 1 where id=#{id}
+    </update>
+    <update id="delRegionByIds" parameterType="string">
+        update region set del_flag = 1
+        <where>
+            id in
+            <foreach collection="str" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        </where>
+    </update>
+    <select id="selAllRegions" resultType="com.suzhou.cabinet.entity.Region">
+        select * from region where del_flag = 0
+    </select>
+    <select id="selRegionsByParentId" parameterType="string" resultType="com.suzhou.cabinet.entity.Region">
+        select * from region where del_flag = 0 and parent_id=#{id}
+    </select>
+    <select id="selCombine" resultType="com.suzhou.cabinet.entity.Region">
+        select * from region where parent_id=#{parentId} and seq_no=#{seqNo}
+    </select>
+    <select id="selSeqNoCount" resultType="java.lang.Integer">
+        select MAX(0+seq_no) from region where parent_id=#{parentId}
+    </select>
+    <select id="selAllFatherPoint" resultType="com.suzhou.cabinet.entity.RegionTree">
+        select id,name,parent_id,is_directory from region where parent_id='0' and del_flag = 0
+    </select>
+    <select id="selRegionsByFatherId" resultType="com.suzhou.cabinet.entity.RegionTree">
+        select id,name,parent_id,is_directory from region where del_flag = 0 and parent_id=#{id} order by is_directory desc,create_time asc
+    </select>
+    <select id="selByNameAndParentId" resultType="com.suzhou.cabinet.entity.Region">
+        select * from region where del_flag = 0 and name=#{name} and parent_id=#{parentId}
+    </select>
+    <select id="selUpdateNameAndParentId" resultType="com.suzhou.cabinet.entity.Region">
+        select * from region where del_flag = 0 and name=#{name} and parent_id=#{parentId} and id!=#{id}
+    </select>
+    <select id="selNotFather" resultType="com.suzhou.cabinet.entity.RegionTree">
+        select id,name,parent_id,is_directory from region where parent_id!='0' and del_flag = 0
+    </select>
+    <select id="selRegions" resultType="com.suzhou.cabinet.entity.Region">
+        select * from region where is_directory = 0 and del_flag = 0
+    </select>
+    <select id="selectById" resultType="com.suzhou.cabinet.entity.Region">
+        select * from region where id = #{parentId} and del_flag = 0
+    </select>
 
 </mapper>

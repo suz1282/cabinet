@@ -20,5 +20,64 @@
     <sql id="Base_Column_List">
         id, title, type, content, start_time, end_time, create_time, update_time, del_flag, picture_name
     </sql>
+    <update id="updAnnouncementById" parameterType="string">
+        update announcement set del_flag=1 where id=#{id}
+    </update>
+    <select id="selByCreatorId" parameterType="string" resultType="com.suzhou.cabinet.entity.Announcement">
+        select * from announcement where create_user=#{id} or update_user=#{id}
+    </select>
+    <select id="selCountAll" resultType="java.lang.Integer">
+        select count(*) from announcement where del_flag=0
+    </select>
+    <select id="selByPage" resultType="com.suzhou.cabinet.entity.Announcement">
+        select * from announcement where del_flag=0 order by create_time desc limit #{i},#{size}
+    </select>
+    <select id="selCountByTypeAndTitle" resultType="java.lang.Integer">
+        select count(*) from announcement
+        where del_flag=0
+        <if test="type != null and type != ''">
+            and type=#{type}
+        </if>
+        <if test="title != null and title != ''">
+            and title like #{title}
+        </if>
+    </select>
+    <select id="selByTypeAndTitle" resultType="com.suzhou.cabinet.entity.Announcement">
+        select * from announcement
+        where del_flag=0
+        <if test="type != null and type != ''">
+            and type=#{type}
+        </if>
+        <if test="title != null and title != ''">
+            and title like #{title}
+        </if>
+        order by create_time desc limit #{i},#{size}
+    </select>
+    <select id="selCountByTitle" resultType="java.lang.Integer">
+        select count(*) from announcement where del_flag=0 and title like #{title}
+    </select>
+    <select id="selByTitle" resultType="com.suzhou.cabinet.entity.Announcement">
+        select * from announcement where del_flag=0 and title like #{title} order by create_time desc limit #{i},#{size}
+    </select>
+    <select id="selCountByType" resultType="java.lang.Integer">
+        select count(*) from announcement where del_flag=0 and type=#{type}
+    </select>
+    <select id="selByType" resultType="com.suzhou.cabinet.entity.Announcement">
+        select * from announcement where del_flag=0 and type=#{type} order by create_time desc limit #{i},#{size}
+    </select>
+    <select id="selAnnouncePageList" resultType="com.suzhou.cabinet.entity.Announcement">
+        select * from announcement as a
+        where del_flag=0
+        <if test="asp.type != null and asp.type != ''">
+            and a.type=#{asp.type}
+        </if>
+        <if test="asp.title != null and asp.title != ''">
+            and a.title like concat('%', #{asp.title} ,'%')
+        </if>
+        order by create_time desc
+    </select>
+    <select id="selAnnouncementById" resultType="com.suzhou.cabinet.entity.Announcement">
+        select * from announcement where del_flag=0 and id=#{announcementId}
+    </select>
 
 </mapper>
