@@ -5,12 +5,18 @@ import com.suzhou.cabinet.entity.User;
 import com.suzhou.cabinet.service.UserService;
 import com.suzhou.cabinet.utils.RestResult;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Driver;
 
@@ -31,14 +37,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/getUser")
-    @ApiOperation("获取用户")
-    public User getUser() {
-        User u =new User();
-        u.setId("123");
-        u.setName("suzhou");
-        return u;
-    }
 
     @PostMapping("/login")
     @ApiOperation("用户登录")
