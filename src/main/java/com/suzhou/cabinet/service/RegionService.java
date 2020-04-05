@@ -54,11 +54,6 @@ public class RegionService {
         } else if ("0".equals(region1.getIsDirectory())) {//父级不是目录
             return fail("insert error", "不能在区域下新建");
         }
-        Integer count = regionMapper.selSeqNoCount(region.getParentId());
-        if (count == null) {
-            count = 0;
-        }
-        int seq = count + 1;
 
         region.setId(IdWorker.get32UUID());
         Date date = new Date();// 获取当前时间
@@ -144,9 +139,9 @@ public class RegionService {
     private void getSon(RegionTree regionTree, Map<String, List<RegionTree>> collect) {
         List<RegionTree> regionTrees = collect.get(regionTree.getId());
         if (regionTrees == null || regionTrees.size() == 0) {//没有孩子了
-            regionTree.setChild(new ArrayList<>());
+            regionTree.setChildren(new ArrayList<>());
         } else {
-            regionTree.setChild(regionTrees);
+            regionTree.setChildren(regionTrees);
             for (RegionTree tree : regionTrees) {
                 getSon(tree, collect);
             }

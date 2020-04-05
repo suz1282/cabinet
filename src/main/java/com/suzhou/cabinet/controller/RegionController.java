@@ -24,62 +24,55 @@ import java.util.List;
 @RestController
 @RequestMapping("/region")
 @Api(description = "区域管理")
+@CrossOrigin("*")
 public class RegionController {
     @Autowired
     RegionService regionService;
 
     @PostMapping("/addRegion")
     @ApiOperation("添加区域")
-    @ApiImplicitParam(name = "Authorization", value = "token", required = true, dataType = "string", paramType = "header")
     public RestResult<String> addRegion(@RequestBody Region region){
         return regionService.addRegion(region);
     }
 
     @PostMapping("/setRegion")
     @ApiOperation("修改区域")
-    @ApiImplicitParam(name = "Authorization", value = "token", required = true, dataType = "string", paramType = "header")
     public RestResult<Void> setRegion(@RequestBody Region region){
         return regionService.setRegion(region);
     }
 
     @GetMapping("/deleteRegion/{id}")
     @ApiOperation("删除区域")
-    @ApiImplicitParam(name = "Authorization", value = "token", required = true, dataType = "string", paramType = "header")
     public RestResult<Void> deleteRegionById(@PathVariable("id") String id){
         return regionService.deleteRegionById(id);
     }
 
     @GetMapping("/getRegionsTree")
     @ApiOperation("区域树")
-    @ApiImplicitParam(name = "Authorization", value = "token", required = true, dataType = "string", paramType = "header")
     public RestResult<List<RegionTree>> getRegionsTree(){
         return regionService.getRegionTree();
     }
 
     @GetMapping("/getRegion/{id}")
     @ApiOperation("通过id查区域信息")
-    @ApiImplicitParam(name = "Authorization", value = "token", required = true, dataType = "string", paramType = "header")
     public RestResult<List<Region>> getRegionById(@PathVariable("id") String id){
         return regionService.getRegionById(id);
     }
 
     @GetMapping("/pointJudgement")
     @ApiOperation("通过经纬度查点所在的区域")
-    @ApiImplicitParam(name = "Authorization", value = "token", required = true, dataType = "string", paramType = "header")
     public RestResult<List<Region>> pointJudgement(@RequestParam("lat") Double lat, @RequestParam("lng") Double lng){
         return regionService.pointJudgement(lat,lng);
     }
 
     @GetMapping("/placeNameJudgement/{placeName}")
     @ApiOperation("通过地名查所在的区域")
-    @ApiImplicitParam(name = "Authorization", value = "token", required = true, dataType = "string", paramType = "header")
     public RestResult<List<Region>> pointJudgement(@PathVariable("placeName") String placeName){
         return regionService.pointJudgement(placeName);
     }
 
     @GetMapping("/pointToName")
     @ApiOperation("坐标点查名字")
-    @ApiImplicitParam(name = "Authorization", value = "token", required = true, dataType = "string", paramType = "header")
     public RestResult<String> pointToName(@RequestParam("lat") Double lat, @RequestParam("lng") Double lng){
         return regionService.pointToName(lat,lng);
     }

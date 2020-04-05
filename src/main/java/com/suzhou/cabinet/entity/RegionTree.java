@@ -27,5 +27,5 @@ public class RegionTree {
     private String isDirectory;
 
     @ApiModelProperty(value = "子树",required = false)
-    private List<RegionTree> child;
+    private List<RegionTree> children;
 }
