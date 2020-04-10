@@ -6,6 +6,8 @@ import com.suzhou.cabinet.entity.Cabinet;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -18,4 +20,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CabinetMapper extends BaseMapper<Cabinet> {
 
+    void updCabinet(String id);
+
+    List<Cabinet> selByRegionId(String id);
+
+    List<Cabinet> selAllCabinet();
 }

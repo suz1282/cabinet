@@ -126,7 +126,7 @@ public class BaiDuMapUtil {
         }
     }
 
-    private static double[] String2Double(String[] List) {
+    public static double[] String2Double(String[] List) {
         double[] GpsList = new double[List.length];
         for (int i = 0; i < List.length; i++) {
             GpsList[i] = Double.parseDouble(List[i]);

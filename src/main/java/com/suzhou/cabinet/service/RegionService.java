@@ -74,10 +74,10 @@ public class RegionService {
      * 更新区域
      */
     public RestResult<Void> setRegion(Region region) {
-        if(region.getBoundaryPoint()!=null&&region.getBoundaryPoint().length()!=0){
+        if (region.getBoundaryPoint() != null && region.getBoundaryPoint().length() != 0) {
             Region region2 = regionMapper.selectById(region.getId());
-            if("1".equals(region2.getIsDirectory())){
-                return fail("update error","无法在目录上进行修改");
+            if ("1".equals(region2.getIsDirectory())) {
+                return fail("update error", "无法在目录上进行修改");
             }
         }
         if (nameUpdateExists(region.getId(), region.getName(), region.getParentId())) {//同级目录下有同名
@@ -105,10 +105,10 @@ public class RegionService {
      * 递归删除区域
      */
     public RestResult<Void> deleteRegionById(String id) {
-        List<String> str=new ArrayList<>();
+        List<String> str = new ArrayList<>();
         Map<String, List<Region>> collect = regionMapper.selAllRegions().stream().collect(Collectors.groupingBy(item -> item.getParentId()));
-        getALlByParentId(id,str,collect);
-        if(str.size()>0){
+        getALlByParentId(id, str, collect);
+        if (str.size() > 0) {
             regionMapper.delRegionByIds(str);
         }
         return success(null);
@@ -117,9 +117,9 @@ public class RegionService {
     private void getALlByParentId(String id, List<String> str, Map<String, List<Region>> collect) {
         str.add(id);
         List<Region> regions = collect.get(id);
-        if(ObjectUtil.isNotNull(regions)){
+        if (ObjectUtil.isNotNull(regions)) {
             regions.forEach(region -> {
-                getALlByParentId(region.getId(),str,collect);
+                getALlByParentId(region.getId(), str, collect);
             });
         }
     }
@@ -180,14 +180,14 @@ public class RegionService {
         List<Region> regionList = regionMapper.selRegions();
         List<Region> rs = new ArrayList<>();
         regionList.forEach(region -> {
-            String[] split = region.getBoundaryPoint().split("\\{\"lng\":");
-            if (split.length > 3) {
+            String[] split = region.getBoundaryPoint().split(",");
+            if (split.length >= 3) {
                 String[] lngs = new String[split.length - 1];
                 String[] lats = new String[split.length - 1];
                 for (int i = 1; i < split.length; i++) {
-                    String[] s = split[i].split(",\"lat\":");
-                    lngs[i - 1] = s[0];
-                    lats[i - 1] = s[1].substring(0, s[1].indexOf("}"));
+                    String[] s = split[i].split("lat:");
+                    lngs[i - 1] = s[0].substring(4);
+                    lats[i - 1] = s[1];
                 }
                 boolean b = BaiDuMapUtil.JudgeInOutFirst(String2Double(lngs), String2Double(lats), lng, lat);
                 if (b) {
@@ -222,10 +222,14 @@ public class RegionService {
 
     public RestResult<String> pointToName(Double lat, Double lng) {
         try {
-            return success(BaiDuMapUtil.getPosition(lat.toString(),lng.toString()));
+            return success(BaiDuMapUtil.getPosition(lat.toString(), lng.toString()));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        return fail("region search error","查询失败");
+        return fail("region search error", "查询失败");
+    }
+
+    public List<Region> listRegions() {
+        return regionMapper.selAllRegions() == null ? new ArrayList<>() : regionMapper.selAllRegions();
     }
 }

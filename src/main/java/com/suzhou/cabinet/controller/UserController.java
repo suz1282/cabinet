@@ -37,12 +37,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
-
     @PostMapping("/login")
     @ApiOperation("用户登录")
     public RestResult<String> login(@RequestBody User loginUser) {
         return userService.login(loginUser);
     }
+
     @PostMapping("/register")
     @ApiOperation("用户注册")
     public RestResult<String> register(@RequestBody User loginUser) {
