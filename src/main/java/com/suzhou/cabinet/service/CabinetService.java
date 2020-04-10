@@ -2,8 +2,10 @@ package com.suzhou.cabinet.service;
 
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.suzhou.cabinet.entity.Cabinet;
+import com.suzhou.cabinet.entity.CabinetDTO;
 import com.suzhou.cabinet.entity.CabinetVO;
 import com.suzhou.cabinet.entity.Region;
 import com.suzhou.cabinet.mapper.CabinetMapper;
@@ -24,7 +26,7 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author suz
@@ -44,7 +46,7 @@ public class CabinetService {
         DateFormatUtils.format(date, "yyyy-MM-dd HH:mm:ss");
         cabinet.setCreateTime(date);
         cabinet.setDelFlag("0");
-        cabinet.setRegionId(getRegionIdByPoint(cabinet.getLongitude(),cabinet.getLatitude()));
+        cabinet.setRegionId(getRegionIdByPoint(cabinet.getLongitude(), cabinet.getLatitude()));
         cabinetMapper.insert(cabinet);
         return RestResult.success(cabinet.getId());
     }
@@ -52,7 +54,7 @@ public class CabinetService {
     private String getRegionIdByPoint(String longitude, String latitude) {
         double[] doubles = BaiDuMapUtil.String2Double(new String[]{longitude, latitude});
         RestResult<List<Region>> listRestResult = regionService.pointJudgement(doubles[1], doubles[0]);
-        return listRestResult.getResultData().size()<=0?"":listRestResult.getResultData().get(0).getId();
+        return listRestResult.getResultData().size() <= 0 ? "" : listRestResult.getResultData().get(0).getId();
     }
 
     public RestResult<String> deleteCabinet(String id) {
@@ -61,26 +63,30 @@ public class CabinetService {
     }
 
     public RestResult<List<Cabinet>> getCabinetByRegion(String id) {
-        List<Cabinet> cabinets=cabinetMapper.selByRegionId(id);
-        return RestResult.success(cabinets.size()<=0?new ArrayList<>():cabinets);
+        List<Cabinet> cabinets = cabinetMapper.selByRegionId(id);
+        return RestResult.success(cabinets.size() <= 0 ? new ArrayList<>() : cabinets);
     }
 
-    public RestResult<List<CabinetVO>> listCabinet() {
-        List<Cabinet> cabinets = cabinetMapper.selAllCabinet();
+    public RestResult<Page<CabinetVO>> listCabinet(CabinetVO vo) {
+        Page<CabinetVO> page = new Page<>();
+        page.setCurrent(vo.getCurrentPage() > 0 ? vo.getCurrentPage() : 1);
+        page.setPages(vo.getCurrentPage() > 10 ? vo.getCurrentPage() : 10);
+        List<Cabinet> cabinets = cabinetMapper.selCabinetByPage(page);
         Map<String, List<Region>> collect =
                 regionService.listRegions().stream().collect(Collectors.groupingBy(Region::getId));
-        List<CabinetVO> cabinetVOS= new ArrayList<>();
+        List<CabinetVO> cabinetVOS = new ArrayList<>();
         cabinets.forEach(cabinet -> {
-            CabinetVO c=new CabinetVO();
+            CabinetVO c = new CabinetVO();
             c.setId(cabinet.getId());
             c.setName(cabinet.getName());
-            c.setCreateTime(DateFormatUtils.format(cabinet.getCreateTime(),"yyyy-MM-dd"));
+            c.setCreateTime(DateFormatUtils.format(cabinet.getCreateTime(), "yyyy-MM-dd"));
             List<Region> regions = collect.get(cabinet.getRegionId());
-            if(ObjectUtil.isNotNull(regions)||regions.size()>0){
+            if (ObjectUtil.isNotNull(regions) || regions.size() > 0) {
                 c.setRegionId(collect.get(cabinet.getRegionId()).get(0).getName());
             }
             cabinetVOS.add(c);
         });
-        return RestResult.success(cabinetVOS);
+        page.setRecords(cabinetVOS);
+        return RestResult.success(page);
     }
 }

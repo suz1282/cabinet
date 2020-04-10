@@ -26,5 +26,8 @@
     <select id="selAllCabinet" resultType="com.suzhou.cabinet.entity.Cabinet">
         select * from cabinet where del_flag='0'
     </select>
+    <select id="selCabinetByPage" resultType="com.suzhou.cabinet.entity.Cabinet">
+        select * from cabinet where del_flag='0'
+    </select>
 
 </mapper>

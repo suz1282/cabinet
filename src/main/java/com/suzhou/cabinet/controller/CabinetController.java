@@ -1,6 +1,7 @@
 package com.suzhou.cabinet.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.suzhou.cabinet.entity.Cabinet;
 import com.suzhou.cabinet.entity.CabinetVO;
 import com.suzhou.cabinet.service.CabinetService;
@@ -35,21 +36,21 @@ public class CabinetController {
     }
 
     @GetMapping("/getCabinetByRegion/{id}")
-    @ApiOperation("添加快递柜")
+    @ApiOperation("通过区域id获取快递柜")
     public RestResult<List<Cabinet>> getCabinetByRegion(@PathVariable("id") String id){
         return cabinetService.getCabinetByRegion(id);
     }
 
     @GetMapping("/deleteCabinet/{id}")
-    @ApiOperation("添加快递柜")
+    @ApiOperation("删除快递柜")
     public RestResult<String> deleteCabinet(@PathVariable("id") String id){
         return cabinetService.deleteCabinet(id);
     }
 
-    @GetMapping("/Cabinet/list")
-    @ApiOperation("添加快递柜")
-    public RestResult<List<CabinetVO>> listCabinet(){
-        return cabinetService.listCabinet();
+    @PostMapping("/Cabinet/list")
+    @ApiOperation("快递柜消息")
+    public RestResult<Page<CabinetVO>> listCabinet(@RequestBody CabinetVO vo){
+        return cabinetService.listCabinet(vo);
     }
 }
 
