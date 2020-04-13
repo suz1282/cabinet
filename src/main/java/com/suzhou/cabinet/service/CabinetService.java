@@ -95,4 +95,12 @@ public class CabinetService {
         page.setRecords(cabinetVOS);
         return RestResult.success(page);
     }
+
+    public void updPointByRegionId(String id) {
+        List<Cabinet> cabinets=cabinetMapper.selByRegionId(id);
+        cabinets.forEach(cabinet -> {
+            cabinet.setRegionId(getRegionIdByPoint(cabinet.getLongitude(), cabinet.getLatitude()));
+            cabinetMapper.updateById(cabinet);
+        });
+    }
 }

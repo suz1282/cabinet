@@ -39,6 +39,9 @@ public class RegionService {
     @Autowired
     RegionMapper regionMapper;
 
+    @Autowired
+    CabinetService cabinetService;
+
     /**
      * 添加区域
      */
@@ -92,6 +95,9 @@ public class RegionService {
         if (integer == 0) {
             return fail("update failure", "can not update the region");
         }
+        new Thread(()->{
+            cabinetService.updPointByRegionId(region.getId());
+        });
         return success(null);
     }
 
