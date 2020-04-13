@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@Import({SwaggerConfig.class})
+@Import({SwaggerConfig.class,MybatisPlusConfig.class})
 public class CommonConfig {
 
 }

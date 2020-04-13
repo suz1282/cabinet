@@ -43,6 +43,8 @@ public class Box extends Model<Box> {
 
     private String delFlag;
 
+    private String boxType;
+
     @Override
     protected Serializable pkVal() {
         return this.id;

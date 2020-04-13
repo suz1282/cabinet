@@ -40,6 +40,9 @@ public class CabinetService {
     @Autowired
     RegionService regionService;
 
+    @Autowired
+    BoxService boxService;
+
     public RestResult<String> addCabinet(Cabinet cabinet) {
         cabinet.setId(IdWorker.get32UUID());
         Date date = new Date();// 获取当前时间
@@ -48,6 +51,9 @@ public class CabinetService {
         cabinet.setDelFlag("0");
         cabinet.setRegionId(getRegionIdByPoint(cabinet.getLongitude(), cabinet.getLatitude()));
         cabinetMapper.insert(cabinet);
+        new Thread(()->{
+            boxService.insertInit(cabinet.getId());
+        }).start();
         return RestResult.success(cabinet.getId());
     }
 
@@ -70,7 +76,7 @@ public class CabinetService {
     public RestResult<Page<CabinetVO>> listCabinet(CabinetVO vo) {
         Page<CabinetVO> page = new Page<>();
         page.setCurrent(vo.getCurrentPage() > 0 ? vo.getCurrentPage() : 1);
-        page.setPages(vo.getCurrentPage() > 10 ? vo.getCurrentPage() : 10);
+        page.setSize(Math.max(vo.getPageSize(), 5));
         List<Cabinet> cabinets = cabinetMapper.selCabinetByPage(page);
         Map<String, List<Region>> collect =
                 regionService.listRegions().stream().collect(Collectors.groupingBy(Region::getId));

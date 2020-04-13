@@ -5,6 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.suzhou.cabinet.entity.Box">
         <id column="id" property="id" />
+        <id column="box_type" property="boxType" />
         <result column="h" property="h" />
         <result column="w" property="w" />
         <result column="d" property="d" />
@@ -18,5 +19,11 @@
     <sql id="Base_Column_List">
         h, w, d, id, name, is_empty, cabinet_id, del_flag
     </sql>
+    <insert id="insInit">
+        insert into box(h,w,d,id,name,is_empty,cabinet_id,del_flag,box_type) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.h},#{item.w},#{item.d},#{item.id},'',#{item.isEmpty},#{item.cabinetId},#{item.delFlag},#{item.boxType})
+        </foreach>
+    </insert>
 
 </mapper>

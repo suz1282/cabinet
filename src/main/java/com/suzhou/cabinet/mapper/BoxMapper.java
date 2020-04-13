@@ -2,8 +2,11 @@ package com.suzhou.cabinet.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.suzhou.cabinet.entity.Box;
+import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BoxMapper {
 
+    void insInit(@Param("list") List<Box> boxes);
 }
