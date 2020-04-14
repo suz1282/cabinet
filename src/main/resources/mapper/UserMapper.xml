@@ -4,11 +4,11 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.suzhou.cabinet.entity.User">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="password" property="password" />
-        <result column="type" property="type" />
-        <result column="del_flag" property="delFlag" />
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="password" property="password"/>
+        <result column="type" property="type"/>
+        <result column="del_flag" property="delFlag"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -16,7 +16,18 @@
         id, name, password, type, del_flag
     </sql>
     <select id="selUser" resultType="com.suzhou.cabinet.entity.User">
-        select * from cabinet.user where id=#{loginUser.id} and password=#{loginUser.password}
+        select * from cabinet.user where name=#{loginUser.name} and password=#{loginUser.password}
+    </select>
+    <select id="selUser2Num" resultType="com.suzhou.cabinet.entity.UserVO">
+        select u.id as id,u.name as name,sum(if(o.id is null,0,1)) as orderNumber
+        from `user` as u
+        left join `order` as o
+        on u.id=o.courier_id
+        where del_flag='0'
+        and o.arrival_time is null
+        and u.type=2
+        group by u.id
+        order by count(*)
     </select>
 
 </mapper>

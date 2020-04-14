@@ -2,6 +2,7 @@ package com.suzhou.cabinet.service;
 
 
 import com.suzhou.cabinet.entity.User;
+import com.suzhou.cabinet.entity.UserVO;
 import com.suzhou.cabinet.mapper.UserMapper;
 import com.suzhou.cabinet.utils.RestResult;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -37,4 +38,7 @@ public class UserService {
         return fail("login error","user do not exist");
     }
 
+    public RestResult<List<UserVO>> getUser2() {
+        return success(userMapper.selUser2Num());
+    }
 }

@@ -2,6 +2,7 @@ package com.suzhou.cabinet.controller;
 
 
 import com.suzhou.cabinet.entity.User;
+import com.suzhou.cabinet.entity.UserVO;
 import com.suzhou.cabinet.service.UserService;
 import com.suzhou.cabinet.utils.RestResult;
 import io.swagger.annotations.Api;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Driver;
+import java.util.List;
 
 /**
  * <p>
@@ -47,6 +49,12 @@ public class UserController {
     @ApiOperation("用户注册")
     public RestResult<String> register(@RequestBody User loginUser) {
         return userService.login(loginUser);
+    }
+
+    @GetMapping("/getUser2")
+    @ApiOperation("获取所有快递员和其任务数")
+    public RestResult<List<UserVO>> getUser2() {
+        return userService.getUser2();
     }
 
 }

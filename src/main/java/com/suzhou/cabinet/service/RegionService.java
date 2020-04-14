@@ -145,7 +145,7 @@ public class RegionService {
     private void getSon(RegionTree regionTree, Map<String, List<RegionTree>> collect) {
         List<RegionTree> regionTrees = collect.get(regionTree.getId());
         if (regionTrees == null || regionTrees.size() == 0) {//没有孩子了
-            regionTree.setChildren(new ArrayList<>());
+            regionTree.setChildren(null);
         } else {
             regionTree.setChildren(regionTrees);
             for (RegionTree tree : regionTrees) {
