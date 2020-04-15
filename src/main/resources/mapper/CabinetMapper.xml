@@ -21,7 +21,12 @@
         update cabinet set del_flag='1' where id=#{id}
     </update>
     <select id="selByRegionId" resultType="com.suzhou.cabinet.entity.Cabinet">
-        select * from cabinet where region_id=#{id} and del_flag='0'
+        select cab.id,cab.name
+        from cabinet cab inner join box b on cab.id=b.cabinet_id
+        where cab.region_id=#{id}
+        and cab.del_flag='0'
+        group by cab.id
+        having sum(b.is_empty)>0
     </select>
     <select id="selAllCabinet" resultType="com.suzhou.cabinet.entity.Cabinet">
         select * from cabinet where del_flag='0'

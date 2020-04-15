@@ -28,7 +28,7 @@ public class OrderController {
     OrderService orderService;
 
     @PostMapping("/addOrder")
-    @ApiOperation("用户登录")
+    @ApiOperation("添加订单")
     public RestResult<String> login(@RequestBody OrderDTO orderDTO) {
         return orderService.addOrder(orderDTO);
     }

@@ -16,5 +16,8 @@
     <sql id="Base_Column_List">
         id, box_id, arrival_time, courier_id, user_id, code
     </sql>
+    <insert id="insOrder">
+        INSERT INTO `order` ( id, box_id, courier_id, code ) VALUES ( #{order.id}, #{order.boxId}, #{order.courierId}, #{order.code} )
+    </insert>
 
 </mapper>

@@ -30,15 +30,19 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
-    public RestResult<String> login(User loginUser) {
+    public RestResult<User> login(User loginUser) {
         User user = userMapper.selUser(loginUser);
         if(user!=null){
-            return success("success");
+            return success(user);
         }
         return fail("login error","user do not exist");
     }
 
     public RestResult<List<UserVO>> getUser2() {
         return success(userMapper.selUser2Num());
+    }
+
+    public RestResult<User> checkToken(String id) {
+        return success(userMapper.selectById(id));
     }
 }

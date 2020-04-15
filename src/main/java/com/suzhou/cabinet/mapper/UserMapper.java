@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Mapper
 @Repository
-public interface UserMapper extends BaseMapper<Cabinet> {
+public interface UserMapper extends BaseMapper<User> {
 
     User selUser(@Param("loginUser") User loginUser);
 

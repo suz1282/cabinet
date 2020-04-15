@@ -41,13 +41,7 @@ public class UserController {
 
     @PostMapping("/login")
     @ApiOperation("用户登录")
-    public RestResult<String> login(@RequestBody User loginUser) {
-        return userService.login(loginUser);
-    }
-
-    @PostMapping("/register")
-    @ApiOperation("用户注册")
-    public RestResult<String> register(@RequestBody User loginUser) {
+    public RestResult<User> login(@RequestBody User loginUser) {
         return userService.login(loginUser);
     }
 
@@ -55,6 +49,12 @@ public class UserController {
     @ApiOperation("获取所有快递员和其任务数")
     public RestResult<List<UserVO>> getUser2() {
         return userService.getUser2();
+    }
+
+    @GetMapping("/checkToken/{id}")
+    @ApiOperation("获取所有快递员和其任务数")
+    public RestResult<User> checkToken(@PathVariable("id") String id) {
+        return userService.checkToken(id);
     }
 
 }

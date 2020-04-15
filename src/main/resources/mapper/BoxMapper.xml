@@ -25,5 +25,11 @@
             (#{item.h},#{item.w},#{item.d},#{item.id},'',#{item.isEmpty},#{item.cabinetId},#{item.delFlag},#{item.boxType})
         </foreach>
     </insert>
+    <update id="updNotEmpty">
+        update box set is_empty='0' where id=#{id}
+    </update>
+    <select id="selEmptyByCabinetId" resultType="com.suzhou.cabinet.entity.Box">
+        select * from box where cabinet_id=#{cabinetId} and del_flag=0 and is_empty=1
+    </select>
 
 </mapper>
