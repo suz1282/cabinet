@@ -25,34 +25,31 @@ import java.util.List;
 @RestController
 @RequestMapping("/announcement")
 @Api(description = "公告内容增删改查管理")
+@CrossOrigin("*")
 public class AnnouncementController {
     @Autowired
     AnnouncementService announcementService;
 
     @PostMapping("/addAnnouncement")
     @ApiOperation("公告添加")
-    @ApiImplicitParam(name = "Authorization", value = "token", required = true, dataType = "string", paramType = "header")
     public RestResult<Void> addAnnouncement(@RequestBody Announcement announcement) {
         return announcementService.addAnnouncement(announcement);
     }
 
     @PostMapping("/deleteAnnouncement")
     @ApiOperation("公告删除")
-    @ApiImplicitParam(name = "Authorization", value = "token", required = true, dataType = "string", paramType = "header")
     public RestResult<Page<Announcement>> deleteAnnouncement(@RequestBody AnnounceSearchPage announceSearchPage) {
         return announcementService.deleteAnnouncement(announceSearchPage);
     }
 
     @PostMapping("/updateAnnouncement")
     @ApiOperation("公告更新")
-    @ApiImplicitParam(name = "Authorization", value = "token", required = true, dataType = "string", paramType = "header")
     public RestResult<Void> updateAnnouncement(@RequestBody Announcement announcement) {
         return announcementService.updateAnnouncement(announcement);
     }
 
     @GetMapping("/getAnnouncement/{id}")
     @ApiOperation("显示公告详细")
-    @ApiImplicitParam(name = "Authorization", value = "token", required = true, dataType = "string", paramType = "header")
     public RestResult<Announcement> getReadAnnouncement(@PathVariable("id") String id) {
         return announcementService.getMsg(id);
     }
@@ -60,7 +57,6 @@ public class AnnouncementController {
     //模糊查询
     @PostMapping("/getAnnouncement")
     @ApiOperation("查询公告")
-    @ApiImplicitParam(name = "Authorization", value = "token", required = true, dataType = "string", paramType = "header")
     public RestResult<Page<Announcement>> getAnnouncement(@RequestBody AnnounceSearchPage announceSearchPage) {
         return announcementService.getAnnounceSearchPage(announceSearchPage);
     }
