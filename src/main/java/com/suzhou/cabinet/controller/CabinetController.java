@@ -52,5 +52,11 @@ public class CabinetController {
     public RestResult<Page<CabinetVO>> listCabinet(@RequestBody CabinetVO vo){
         return cabinetService.listCabinet(vo);
     }
+
+    @PostMapping("/updateCabinet")
+    @ApiOperation("快递柜消息")
+    public RestResult<String> updateCabinet(@RequestBody CabinetVO vo){
+        return cabinetService.updateCabinet(vo);
+    }
 }
 

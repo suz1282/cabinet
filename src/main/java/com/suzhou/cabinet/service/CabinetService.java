@@ -4,10 +4,7 @@ package com.suzhou.cabinet.service;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.suzhou.cabinet.entity.Cabinet;
-import com.suzhou.cabinet.entity.CabinetDTO;
-import com.suzhou.cabinet.entity.CabinetVO;
-import com.suzhou.cabinet.entity.Region;
+import com.suzhou.cabinet.entity.*;
 import com.suzhou.cabinet.mapper.CabinetMapper;
 import com.suzhou.cabinet.utils.BaiDuMapUtil;
 import com.suzhou.cabinet.utils.RestResult;
@@ -64,6 +61,7 @@ public class CabinetService {
     }
 
     public RestResult<String> deleteCabinet(String id) {
+        List<Box> b=boxService.selByCabinetId(id);
         cabinetMapper.updCabinet(id);
         return RestResult.success("success");
     }
@@ -102,5 +100,13 @@ public class CabinetService {
             cabinet.setRegionId(getRegionIdByPoint(cabinet.getLongitude(), cabinet.getLatitude()));
             cabinetMapper.updateById(cabinet);
         });
+    }
+
+    public RestResult<String> updateCabinet(CabinetVO vo) {
+        Cabinet cabinet=new Cabinet();
+        cabinet.setId(vo.getId());
+        cabinet.setName(vo.getName());
+        cabinetMapper.updateById(cabinet);
+        return RestResult.success("success");
     }
 }

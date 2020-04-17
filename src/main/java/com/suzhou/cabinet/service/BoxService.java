@@ -65,4 +65,8 @@ public class BoxService {
         }
         boxMapper.insInit(boxes);
     }
+
+    public List<Box> selByCabinetId(String id) {
+        return boxMapper.selNotEmptyBoxByCabinetId(id);
+    }
 }

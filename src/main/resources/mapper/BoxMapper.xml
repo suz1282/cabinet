@@ -31,5 +31,8 @@
     <select id="selEmptyByCabinetId" resultType="com.suzhou.cabinet.entity.Box">
         select * from box where cabinet_id=#{cabinetId} and del_flag=0 and is_empty=1
     </select>
+    <select id="selNotEmptyBoxByCabinetId" resultType="com.suzhou.cabinet.entity.Box">
+        select * from box where del_flag=0 and is_empty=1 and cabinet_id=#{id}
+    </select>
 
 </mapper>

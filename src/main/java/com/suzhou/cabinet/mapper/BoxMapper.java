@@ -26,4 +26,6 @@ public interface BoxMapper extends BaseMapper<Box> {
     List<Box> selEmptyByCabinetId(String cabinetId);
 
     void updNotEmpty(String id);
+
+    List<Box> selNotEmptyBoxByCabinetId(String id);
 }
