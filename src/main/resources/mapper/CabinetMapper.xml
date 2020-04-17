@@ -21,7 +21,7 @@
         update cabinet set del_flag='1' where id=#{id}
     </update>
     <select id="selByRegionId" resultType="com.suzhou.cabinet.entity.Cabinet">
-        select cab.id,cab.name
+        select cab.id,cab.name,latitude,longitude
         from cabinet cab inner join box b on cab.id=b.cabinet_id
         where cab.region_id=#{id}
         and cab.del_flag='0'

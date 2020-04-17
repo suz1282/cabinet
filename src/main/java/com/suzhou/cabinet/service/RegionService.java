@@ -95,9 +95,10 @@ public class RegionService {
         if (integer == 0) {
             return fail("update failure", "can not update the region");
         }
-        new Thread(()->{
-            cabinetService.updPointByRegionId(region.getId());
-        });
+
+        //更新快递柜信息
+        cabinetService.updPointByRegionId(region.getId());
+
         return success(null);
     }
 

@@ -3,11 +3,10 @@ package com.suzhou.cabinet.service;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.suzhou.cabinet.entity.AnnounceSearchPage;
+import com.suzhou.cabinet.entity.AnnouncementVO;
 import com.suzhou.cabinet.utils.RestResult;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.suzhou.cabinet.entity.Announcement;
 import com.suzhou.cabinet.mapper.AnnouncementMapper;
-import com.suzhou.cabinet.utils.RestResult;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ import static com.suzhou.cabinet.utils.RestResult.success;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author suz
@@ -62,25 +61,24 @@ public class AnnouncementService {
             return fail("insert error", "添加公告失败!");
         }
 
-        //添加到公告已读announcement_read_rel
-
         return success(null);
     }
 
     /**
      * 公告删除
      */
-    public RestResult<Page<Announcement>> deleteAnnouncement(AnnounceSearchPage announceSearchPage) {
-        Announcement announcement = announcementMapper.selAnnouncementById(announceSearchPage.getId());
+    public RestResult<String> deleteAnnouncement(String id) {
+        Announcement announcement = announcementMapper.selAnnouncementById(id);
         if (announcement == null) {
             return fail("delete error", "公告不存在");
         }
         Date date = new Date();// 获取当前时间
-        DateFormatUtils.format(date,"yyyy-MM-dd HH:mm:ss");
+        DateFormatUtils.format(date, "yyyy-MM-dd HH:mm:ss");
         if (betweenStartAndEnd(announcement, date)) {
             return fail("delete error", "公告开始后不能删除");
         }
-        return getAnnounceSearchPage(announceSearchPage);
+        announcementMapper.updAnnouncementById(id);
+        return success("success");
     }
 
     //公告是否在执行时间内
@@ -98,7 +96,7 @@ public class AnnouncementService {
 
         Announcement announcement1 = announcementMapper.selAnnouncementById(announcement.getId());
         Date date = new Date();// 获取当前时间
-        DateFormatUtils.format(date,"yyyy-MM-dd HH:mm:ss");
+        DateFormatUtils.format(date, "yyyy-MM-dd HH:mm:ss");
         int i = date.compareTo(announcement1.getStartTime());
         if (i < 0) {//date<start
             announcement.setUpdateTime(date);
@@ -124,20 +122,41 @@ public class AnnouncementService {
      * 显示公告详情
      *
      */
-    public RestResult<Announcement> getMsg(String announcementId) {
+    public RestResult<AnnouncementVO> getMsg(String announcementId) {
         Announcement announcement = announcementMapper.selAnnouncementById(announcementId);
+        AnnouncementVO a=new AnnouncementVO();
+        a.setContent(announcement.getContent());
+        a.setId(announcement.getId());
+        a.setTitle(announcement.getTitle());
+        a.setType(announcement.getType());
+        a.setCreateTime(DateFormatUtils.format(announcement.getCreateTime(), "yyyy,MM,dd,HH,mm,ss"));
+        a.setStartTime(DateFormatUtils.format(announcement.getStartTime(), "yyyy,MM,dd,HH,mm,ss"));
+        a.setEndTime(DateFormatUtils.format(announcement.getEndTime(), "yyyy,MM,dd,HH,mm,ss"));
         //id转姓名
-        return success(announcement);
+        return success(a);
     }
 
     //显示公告分页
-    public RestResult<Page<Announcement>> getAnnounceSearchPage(AnnounceSearchPage announceSearchPage) {
-        Page<Announcement> page = new Page<>();
+    public RestResult<Page<AnnouncementVO>> getAnnounceSearchPage(AnnounceSearchPage announceSearchPage) {
+        Page<AnnouncementVO> page = new Page<>();
         page.setSize(announceSearchPage.getSize() < 1 ? 10 : announceSearchPage.getSize());
         page.setCurrent(Math.max(announceSearchPage.getCurrent(), 1));
         List<Announcement> announcements = announcementMapper.selAnnouncePageList(page, announceSearchPage);
         //id转名字
-       page.setRecords(announcements);
+        List<AnnouncementVO> rs = new ArrayList<>();
+        announcements.forEach(announcement -> {
+            AnnouncementVO a=new AnnouncementVO();
+            a.setContent(announcement.getContent());
+            a.setId(announcement.getId());
+            a.setTitle(announcement.getTitle());
+            a.setType(announcement.getType());
+            a.setCreateTime(DateFormatUtils.format(announcement.getCreateTime(), "yyyy-MM-dd HH:mm:ss"));
+            a.setStartTime(DateFormatUtils.format(announcement.getStartTime(), "yyyy-MM-dd HH:mm:ss"));
+            a.setEndTime(DateFormatUtils.format(announcement.getEndTime(), "yyyy-MM-dd HH:mm:ss"));
+            rs.add(a);
+        });
+
+        page.setRecords(rs);
         return success(page);
     }
 

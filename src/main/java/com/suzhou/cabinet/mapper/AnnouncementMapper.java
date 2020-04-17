@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.suzhou.cabinet.entity.AnnounceSearchPage;
 import com.suzhou.cabinet.entity.Announcement;
+import com.suzhou.cabinet.entity.AnnouncementVO;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
@@ -41,7 +42,7 @@ public interface AnnouncementMapper extends BaseMapper<Announcement> {
 
     List<Announcement> selByType(@Param("type") String type, @Param("i") int i, @Param("size") int size);
 
-    List<Announcement> selAnnouncePageList(Page<Announcement> page, @Param("asp") AnnounceSearchPage announceSearchPage);
+    List<Announcement> selAnnouncePageList(Page<AnnouncementVO> page, @Param("asp") AnnounceSearchPage announceSearchPage);
 
     Announcement selAnnouncementById(@Param("announcementId") String announcementId);
 

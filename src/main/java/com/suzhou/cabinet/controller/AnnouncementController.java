@@ -4,6 +4,7 @@ package com.suzhou.cabinet.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.suzhou.cabinet.entity.AnnounceSearchPage;
 import com.suzhou.cabinet.entity.Announcement;
+import com.suzhou.cabinet.entity.AnnouncementVO;
 import com.suzhou.cabinet.service.AnnouncementService;
 import com.suzhou.cabinet.utils.RestResult;
 import io.swagger.annotations.Api;
@@ -36,10 +37,10 @@ public class AnnouncementController {
         return announcementService.addAnnouncement(announcement);
     }
 
-    @PostMapping("/deleteAnnouncement")
+    @GetMapping("/deleteAnnouncement/{id}")
     @ApiOperation("公告删除")
-    public RestResult<Page<Announcement>> deleteAnnouncement(@RequestBody AnnounceSearchPage announceSearchPage) {
-        return announcementService.deleteAnnouncement(announceSearchPage);
+    public RestResult<String> deleteAnnouncement(@PathVariable("id") String id) {
+        return announcementService.deleteAnnouncement(id);
     }
 
     @PostMapping("/updateAnnouncement")
@@ -50,14 +51,14 @@ public class AnnouncementController {
 
     @GetMapping("/getAnnouncement/{id}")
     @ApiOperation("显示公告详细")
-    public RestResult<Announcement> getReadAnnouncement(@PathVariable("id") String id) {
+    public RestResult<AnnouncementVO> getReadAnnouncement(@PathVariable("id") String id) {
         return announcementService.getMsg(id);
     }
 
     //模糊查询
     @PostMapping("/getAnnouncement")
     @ApiOperation("查询公告")
-    public RestResult<Page<Announcement>> getAnnouncement(@RequestBody AnnounceSearchPage announceSearchPage) {
+    public RestResult<Page<AnnouncementVO>> getAnnouncement(@RequestBody AnnounceSearchPage announceSearchPage) {
         return announcementService.getAnnounceSearchPage(announceSearchPage);
     }
 }
