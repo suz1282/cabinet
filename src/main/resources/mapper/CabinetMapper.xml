@@ -34,5 +34,16 @@
     <select id="selCabinetByPage" resultType="com.suzhou.cabinet.entity.Cabinet">
         select * from cabinet where del_flag='0'
     </select>
+    <select id="selByCourierId" resultType="com.suzhou.cabinet.entity.Cabinet">
+        select
+            c.name as name,
+            c.longitude as longitude,
+            c.latitude as latitude,
+            count(*) as delFlag
+        from cabinet as c inner join box as b on c.id=b.cabinet_id
+            inner join `order` as o on o.box_id=b.id
+        where o.courier_id=#{id} and o.arrival_time is null
+        group by c.id
+    </select>
 
 </mapper>

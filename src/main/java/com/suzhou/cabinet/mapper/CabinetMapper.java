@@ -29,4 +29,6 @@ public interface CabinetMapper extends BaseMapper<Cabinet> {
     List<Cabinet> selAllCabinet();
 
     List<Cabinet> selCabinetByPage(Page<CabinetVO> page);
+
+    List<Cabinet> selByCourierId(String id);
 }

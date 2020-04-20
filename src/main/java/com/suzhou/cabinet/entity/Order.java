@@ -32,6 +32,10 @@ public class Order extends Model<Order> {
 
     private String code;
 
+    private String orderCode;
+
+    private Date createTime;
+
     @Override
     protected Serializable pkVal() {
         return this.id;

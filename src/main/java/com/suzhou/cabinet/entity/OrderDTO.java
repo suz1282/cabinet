@@ -19,5 +19,9 @@ public class OrderDTO {
 
     private String courierId;
 
-    private String CabinetId;
+    private String cabinetId;
+
+    private String orderCode;
+
+    private String createTime;
 }

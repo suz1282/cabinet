@@ -11,13 +11,12 @@ import com.suzhou.cabinet.mapper.BoxMapper;
 import com.suzhou.cabinet.mapper.OrderMapper;
 import com.suzhou.cabinet.utils.BaiDuMapUtil;
 import com.suzhou.cabinet.utils.RestResult;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -37,6 +36,20 @@ public class OrderService {
     @Autowired
     BoxMapper boxMapper;
 
+    public List<Order> listOrderByUserId(String id) {
+        List<Order> l=orderMapper.selByCourierId(id);
+        List<Order> orders=new ArrayList<>(32);
+        l.forEach(order -> {
+            Order o=new Order();
+            o.setOrderCode(DateFormatUtils.format(order.getCreateTime(),"yyyy-MM-dd HH:mm:ss"));
+            o.setBoxId(order.getBoxId());
+            o.setId(order.getId());
+            o.setCode(order.getCode());
+            orders.add(o);
+        });
+        return ObjectUtils.isEmpty(orders)?new ArrayList<>():orders;
+    }
+
     public synchronized RestResult<String> addOrder(OrderDTO orderDTO) {
         //快递柜合理存放算法
         double[] d = new double[]{orderDTO.getD(), orderDTO.getH(), orderDTO.getW()};
@@ -48,6 +61,9 @@ public class OrderService {
         if(!ObjectUtils.isEmpty(box)){
             boxMapper.updNotEmpty(box.getId());
             Order order=new Order();
+            Date date = new Date();// 获取当前时间
+            DateFormatUtils.format(date, "yyyy-MM-dd HH:mm:ss");
+            order.setCreateTime(date);
             order.setBoxId(box.getId());
             order.setCourierId(orderDTO.getCourierId());
             order.setId(IdWorker.get32UUID());

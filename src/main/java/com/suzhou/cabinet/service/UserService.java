@@ -1,8 +1,10 @@
 package com.suzhou.cabinet.service;
 
 
+import com.suzhou.cabinet.entity.Order;
 import com.suzhou.cabinet.entity.User;
 import com.suzhou.cabinet.entity.UserVO;
+import com.suzhou.cabinet.mapper.OrderMapper;
 import com.suzhou.cabinet.mapper.UserMapper;
 import com.suzhou.cabinet.utils.RestResult;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -30,6 +32,9 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
+    @Autowired
+    OrderService orderService;
+
     public RestResult<User> login(User loginUser) {
         User user = userMapper.selUser(loginUser);
         if(user!=null){
@@ -44,5 +49,10 @@ public class UserService {
 
     public RestResult<User> checkToken(String id) {
         return success(userMapper.selectById(id));
+    }
+
+    public RestResult<List<Order>> getUser2Missions(String id) {
+        List<Order> list=orderService.listOrderByUserId(id);
+        return success(list);
     }
 }

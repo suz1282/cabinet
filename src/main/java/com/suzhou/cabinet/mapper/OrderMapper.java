@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -20,4 +22,6 @@ import org.springframework.stereotype.Repository;
 public interface OrderMapper extends BaseMapper<Order> {
 
     void insOrder(@Param("order") Order order);
+
+    List<Order> selByCourierId(String id);
 }

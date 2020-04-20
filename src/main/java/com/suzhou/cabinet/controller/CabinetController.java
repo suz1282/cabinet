@@ -58,5 +58,11 @@ public class CabinetController {
     public RestResult<String> updateCabinet(@RequestBody CabinetVO vo){
         return cabinetService.updateCabinet(vo);
     }
+
+    @GetMapping("/getMissions/{id}")
+    @ApiOperation("快递员任务显示在地图上")
+    public RestResult<List<Cabinet>> getMissions(@PathVariable("id") String id){
+        return cabinetService.getMissions(id);
+    }
 }
 

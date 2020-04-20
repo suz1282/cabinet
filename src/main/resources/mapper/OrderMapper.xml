@@ -10,6 +10,8 @@
         <result column="courier_id" property="courierId" />
         <result column="user_id" property="userId" />
         <result column="code" property="code" />
+        <result column="order_code" property="orderCode" />
+        <result column="create_time" property="createTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -19,5 +21,17 @@
     <insert id="insOrder">
         INSERT INTO `order` ( id, box_id, courier_id, code ) VALUES ( #{order.id}, #{order.boxId}, #{order.courierId}, #{order.code} )
     </insert>
+    <select id="selByCourierId" resultType="com.suzhou.cabinet.entity.Order">
+        select
+            o.id as id,
+            c.name as boxId,
+            o.create_time as createTime,
+            o.code as code
+        from `order` as o
+            inner join box as b on b.id=o.box_id
+            inner join cabinet as c on b.cabinet_id=c.id
+        where courier_id=#{id} and arrival_time is null
+        order by o.create_time desc;
+    </select>
 
 </mapper>

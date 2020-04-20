@@ -109,4 +109,9 @@ public class CabinetService {
         cabinetMapper.updateById(cabinet);
         return RestResult.success("success");
     }
+
+    public RestResult<List<Cabinet>> getMissions(String id) {
+        List<Cabinet> list = cabinetMapper.selByCourierId(id);
+        return RestResult.success(list);
+    }
 }

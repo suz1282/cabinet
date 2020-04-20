@@ -1,6 +1,7 @@
 package com.suzhou.cabinet.controller;
 
 
+import com.suzhou.cabinet.entity.Order;
 import com.suzhou.cabinet.entity.User;
 import com.suzhou.cabinet.entity.UserVO;
 import com.suzhou.cabinet.service.UserService;
@@ -52,9 +53,15 @@ public class UserController {
     }
 
     @GetMapping("/checkToken/{id}")
-    @ApiOperation("获取所有快递员和其任务数")
+    @ApiOperation("检查Token")
     public RestResult<User> checkToken(@PathVariable("id") String id) {
         return userService.checkToken(id);
+    }
+
+    @GetMapping("/getUser2Mission/{id}")
+    @ApiOperation("快递员id查其任务")
+    public RestResult<List<Order>> getUser2Mission(@PathVariable("id") String id) {
+        return userService.getUser2Missions(id);
     }
 
 }
