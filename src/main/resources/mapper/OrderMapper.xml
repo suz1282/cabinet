@@ -4,14 +4,14 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.suzhou.cabinet.entity.Order">
-        <id column="id" property="id" />
-        <result column="box_id" property="boxId" />
-        <result column="arrival_time" property="arrivalTime" />
-        <result column="courier_id" property="courierId" />
-        <result column="user_id" property="userId" />
-        <result column="code" property="code" />
-        <result column="order_code" property="orderCode" />
-        <result column="create_time" property="createTime" />
+        <id column="id" property="id"/>
+        <result column="box_id" property="boxId"/>
+        <result column="arrival_time" property="arrivalTime"/>
+        <result column="courier_id" property="courierId"/>
+        <result column="user_id" property="userId"/>
+        <result column="code" property="code"/>
+        <result column="order_code" property="orderCode"/>
+        <result column="create_time" property="createTime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -19,7 +19,7 @@
         id, box_id, arrival_time, courier_id, user_id, code
     </sql>
     <insert id="insOrder">
-        INSERT INTO `order` ( id, box_id, courier_id, code ) VALUES ( #{order.id}, #{order.boxId}, #{order.courierId}, #{order.code} )
+        INSERT INTO `order` ( id, box_id, courier_id, code,create_time) VALUES ( #{order.id}, #{order.boxId}, #{order.courierId}, #{order.code},#{order.createTime} )
     </insert>
     <select id="selByCourierId" resultType="com.suzhou.cabinet.entity.Order">
         select
@@ -32,6 +32,20 @@
             inner join cabinet as c on b.cabinet_id=c.id
         where courier_id=#{id} and arrival_time is null
         order by o.create_time desc;
+    </select>
+    <select id="selMainPageTable" resultType="com.suzhou.cabinet.entity.MainPageBO">
+        select
+            r.id as id,
+            r.name as name,
+            count(*) as data
+        from
+            region as r
+            inner join cabinet as c on c.region_id=r.id and r.is_directory='0' and r.del_flag='0'
+            inner join box as b on c.id=b.cabinet_id
+            inner join `order` as o on b.id=o.box_id
+        where o.create_time>=#{start}
+            and o.create_time &lt;= #{end}
+        group by r.id
     </select>
 
 </mapper>

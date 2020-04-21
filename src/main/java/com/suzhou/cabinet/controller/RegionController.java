@@ -59,6 +59,12 @@ public class RegionController {
         return regionService.getRegionById(id);
     }
 
+    @PostMapping("/getRegions")
+    @ApiOperation("所有区域")
+    public RestResult<List<Region>> getRegions(){
+        return regionService.getRegions();
+    }
+
     @GetMapping("/pointJudgement")
     @ApiOperation("通过经纬度查点所在的区域")
     public RestResult<List<Region>> pointJudgement(@RequestParam("lat") Double lat, @RequestParam("lng") Double lng){

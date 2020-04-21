@@ -239,4 +239,8 @@ public class RegionService {
     public List<Region> listRegions() {
         return regionMapper.selAllRegions() == null ? new ArrayList<>() : regionMapper.selAllRegions();
     }
+
+    public RestResult<List<Region>> getRegions() {
+        return success(regionMapper.selRegions());
+    }
 }

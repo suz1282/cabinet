@@ -1,6 +1,8 @@
 package com.suzhou.cabinet.controller;
 
 
+import com.suzhou.cabinet.entity.MainPageDTO;
+import com.suzhou.cabinet.entity.MainPageVO;
 import com.suzhou.cabinet.entity.OrderDTO;
 import com.suzhou.cabinet.entity.User;
 import com.suzhou.cabinet.service.OrderService;
@@ -9,6 +11,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -31,6 +35,12 @@ public class OrderController {
     @ApiOperation("添加订单")
     public RestResult<String> login(@RequestBody OrderDTO orderDTO) {
         return orderService.addOrder(orderDTO);
+    }
+
+    @PostMapping("/mainPageTable")
+    @ApiOperation("主页表")
+    public RestResult<List<MainPageVO>> login(@RequestBody MainPageDTO mainPageDTO) {
+        return orderService.mainPageTable(mainPageDTO);
     }
 }
 

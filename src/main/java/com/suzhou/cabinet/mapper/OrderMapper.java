@@ -2,11 +2,13 @@ package com.suzhou.cabinet.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.suzhou.cabinet.entity.Cabinet;
+import com.suzhou.cabinet.entity.MainPageBO;
 import com.suzhou.cabinet.entity.Order;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,4 +26,6 @@ public interface OrderMapper extends BaseMapper<Order> {
     void insOrder(@Param("order") Order order);
 
     List<Order> selByCourierId(String id);
+
+    List<MainPageBO> selMainPageTable(@Param("start") String startTime,@Param("end") String endTime);
 }

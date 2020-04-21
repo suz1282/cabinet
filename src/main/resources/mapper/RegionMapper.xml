@@ -55,10 +55,10 @@
         select * from region where del_flag = 0 and name=#{name} and parent_id=#{parentId} and id!=#{id}
     </select>
     <select id="selNotFather" resultType="com.suzhou.cabinet.entity.RegionTree">
-        select id,name,parent_id,is_directory from region where parent_id!='0' and del_flag = 0
+        select id,name,parent_id,is_directory from region where parent_id!='0' and del_flag = 0 order by is_directory desc
     </select>
     <select id="selRegions" resultType="com.suzhou.cabinet.entity.Region">
-        select * from region where is_directory = 0 and del_flag = 0
+        select * from region where is_directory = 0 and del_flag = 0 order by create_time
     </select>
     <select id="selectById" resultType="com.suzhou.cabinet.entity.Region">
         select * from region where id = #{parentId} and del_flag = 0
