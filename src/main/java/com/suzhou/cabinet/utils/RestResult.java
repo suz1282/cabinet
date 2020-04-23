@@ -1,17 +1,12 @@
 package com.suzhou.cabinet.utils;
 
 
-import com.suzhou.cabinet.constant.ErrorCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * @author leo
- * @since 2018/7/27 8:51
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -58,18 +53,6 @@ public final class RestResult<T> {
 
     public static <T> RestResult<T> fail(String errorCode, String errorMessage) {
         return new RestResult<>("error", errorCode, errorMessage, null);
-    }
-
-    public static <T> RestResult<T> fail(ErrorCode errorCode) {
-        return fail(errorCode.getCode(), errorCode.getMessage());
-    }
-
-    public static <T> RestResult<T> failList(ErrorCode errorCode, T t) {
-        return new RestResult<>(errorCode.getCode(), errorCode.getMessage(), null, t);
-    }
-
-    public boolean isSuccess(){
-        return "complete".equals(status);
     }
 
 }

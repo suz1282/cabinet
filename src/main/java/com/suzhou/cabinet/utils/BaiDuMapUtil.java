@@ -104,12 +104,12 @@ public class BaiDuMapUtil {
                     boolean notSameSide = (LngCollotions[i] > Lng) != (LngCollotions[j] >= Lng);//区域点不在同一边,线段为前开后闭
                     double TempLat = (LatCollotions[j] - LatCollotions[i]) * (Lng - LngCollotions[i]) / (LngCollotions[j] - LngCollotions[i]) + LatCollotions[i];//可疑点与直线交点
                     boolean inRange = TempLat < Math.max(LatCollotions[j], LatCollotions[i]) && TempLat >= Math.min(LatCollotions[j], LatCollotions[i]);//区域内
-                    if(notSameSide&&Lat==TempLat){
+                    if (notSameSide && Lat == TempLat) {
                         //点在边界线上
-                        if(inRange){
+                        if (inRange) {
                             return true;
                         }
-                    }else if(notSameSide&&Lat!=TempLat){
+                    } else if (notSameSide && Lat != TempLat) {
                         //点不再边界线上
                         //交点在线段上
                         if (inRange) {

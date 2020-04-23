@@ -36,7 +36,7 @@ public class SwaggerConfig {
     @Bean
     public ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("客户系统API")
+                .title("快递柜系统API")
                 .version(DateTime.now().toString("yyyy-MM-dd HH:mm:ss"))
                 .build();
     }
