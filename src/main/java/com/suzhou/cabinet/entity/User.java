@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -26,6 +27,9 @@ public class User extends Model<User> {
 
     @ApiModelProperty(value = "密码")
     private String password;
+
+
+    private Date createTime;
 
     /**
      * 1:用户  2:快递员 3:管理员
