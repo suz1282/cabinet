@@ -3,7 +3,7 @@ package com.suzhou.cabinet.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.suzhou.cabinet.entity.Cabinet;
-import com.suzhou.cabinet.entity.CabinetVO;
+import com.suzhou.cabinet.entity.vo.CabinetVO;
 import com.suzhou.cabinet.service.CabinetService;
 import com.suzhou.cabinet.utils.RestResult;
 import io.swagger.annotations.Api;

@@ -33,7 +33,7 @@
         where courier_id=#{id} and arrival_time is null
         order by o.create_time desc;
     </select>
-    <select id="selMainPageTable" resultType="com.suzhou.cabinet.entity.MainPageBO">
+    <select id="selMainPageTable" resultType="com.suzhou.cabinet.entity.bo.MainPageBO">
         select
             r.id as id,
             r.name as name,

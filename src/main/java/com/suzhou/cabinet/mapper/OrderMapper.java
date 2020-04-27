@@ -1,14 +1,12 @@
 package com.suzhou.cabinet.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.suzhou.cabinet.entity.Cabinet;
-import com.suzhou.cabinet.entity.MainPageBO;
+import com.suzhou.cabinet.entity.bo.MainPageBO;
 import com.suzhou.cabinet.entity.Order;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 /**

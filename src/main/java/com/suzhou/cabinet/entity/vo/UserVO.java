@@ -1,6 +1,7 @@
-package com.suzhou.cabinet.entity;
+package com.suzhou.cabinet.entity.vo;
 
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.suzhou.cabinet.entity.User;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

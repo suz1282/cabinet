@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.suzhou.cabinet.entity.AnnounceSearchPage;
 import com.suzhou.cabinet.entity.Announcement;
-import com.suzhou.cabinet.entity.AnnouncementVO;
+import com.suzhou.cabinet.entity.vo.AnnouncementVO;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;

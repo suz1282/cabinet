@@ -3,8 +3,8 @@ package com.suzhou.cabinet.service;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.suzhou.cabinet.entity.*;
+import com.suzhou.cabinet.entity.vo.CabinetVO;
 import com.suzhou.cabinet.mapper.CabinetMapper;
 import com.suzhou.cabinet.utils.BaiDuMapUtil;
 import com.suzhou.cabinet.utils.RestResult;
@@ -13,8 +13,6 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

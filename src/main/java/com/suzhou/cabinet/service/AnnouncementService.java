@@ -3,7 +3,7 @@ package com.suzhou.cabinet.service;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.suzhou.cabinet.entity.AnnounceSearchPage;
-import com.suzhou.cabinet.entity.AnnouncementVO;
+import com.suzhou.cabinet.entity.vo.AnnouncementVO;
 import com.suzhou.cabinet.utils.RestResult;
 import com.suzhou.cabinet.entity.Announcement;
 import com.suzhou.cabinet.mapper.AnnouncementMapper;
@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static com.suzhou.cabinet.utils.RestResult.fail;
 import static com.suzhou.cabinet.utils.RestResult.success;

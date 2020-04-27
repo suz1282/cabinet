@@ -1,4 +1,4 @@
-package com.suzhou.cabinet.entity;
+package com.suzhou.cabinet.entity.bo;
 
 import lombok.Data;
 

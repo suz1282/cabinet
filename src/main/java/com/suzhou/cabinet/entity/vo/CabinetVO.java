@@ -1,15 +1,23 @@
-package com.suzhou.cabinet.entity;
+package com.suzhou.cabinet.entity.vo;
 
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @Author : SUZ
  * @Date : 2020/4/10
- * @Description : data transfor object
+ * @Description : 快递柜view_object
  */
 @Data
-public class CabinetDTO {
+public class CabinetVO {
     private static final long serialVersionUID = 1L;
+
+    private int pageSize;
+
+    private int currentPage;
 
     private String id;
 
@@ -22,4 +30,5 @@ public class CabinetDTO {
     private String longitude;
 
     private String latitude;
+
 }

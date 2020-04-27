@@ -1,10 +1,9 @@
 package com.suzhou.cabinet.controller;
 
 
-import com.suzhou.cabinet.entity.MainPageDTO;
-import com.suzhou.cabinet.entity.MainPageVO;
-import com.suzhou.cabinet.entity.OrderDTO;
-import com.suzhou.cabinet.entity.User;
+import com.suzhou.cabinet.entity.dto.MainPageDTO;
+import com.suzhou.cabinet.entity.vo.MainPageVO;
+import com.suzhou.cabinet.entity.dto.OrderDTO;
 import com.suzhou.cabinet.service.OrderService;
 import com.suzhou.cabinet.utils.RestResult;
 import io.swagger.annotations.Api;

@@ -3,6 +3,10 @@ package com.suzhou.cabinet.service;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.suzhou.cabinet.entity.*;
+import com.suzhou.cabinet.entity.bo.MainPageBO;
+import com.suzhou.cabinet.entity.dto.MainPageDTO;
+import com.suzhou.cabinet.entity.dto.OrderDTO;
+import com.suzhou.cabinet.entity.vo.MainPageVO;
 import com.suzhou.cabinet.enums.BoxSize;
 import com.suzhou.cabinet.mapper.BoxMapper;
 import com.suzhou.cabinet.mapper.OrderMapper;

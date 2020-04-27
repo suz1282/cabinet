@@ -4,9 +4,8 @@ package com.suzhou.cabinet.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.suzhou.cabinet.entity.Cabinet;
 import com.suzhou.cabinet.entity.User;
-import com.suzhou.cabinet.entity.UserVO;
+import com.suzhou.cabinet.entity.vo.UserVO;
 import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;

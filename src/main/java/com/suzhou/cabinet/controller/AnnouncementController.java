@@ -4,16 +4,13 @@ package com.suzhou.cabinet.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.suzhou.cabinet.entity.AnnounceSearchPage;
 import com.suzhou.cabinet.entity.Announcement;
-import com.suzhou.cabinet.entity.AnnouncementVO;
+import com.suzhou.cabinet.entity.vo.AnnouncementVO;
 import com.suzhou.cabinet.service.AnnouncementService;
 import com.suzhou.cabinet.utils.RestResult;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * <p>

@@ -1,4 +1,4 @@
-package com.suzhou.cabinet.entity;
+package com.suzhou.cabinet.entity.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
