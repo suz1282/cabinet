@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.suzhou.cabinet.entity.Cabinet;
 import com.suzhou.cabinet.entity.CabinetVO;
+import org.apache.ibatis.annotations.Param;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -28,7 +29,7 @@ public interface CabinetMapper extends BaseMapper<Cabinet> {
 
     List<Cabinet> selAllCabinet();
 
-    List<Cabinet> selCabinetByPage(Page<CabinetVO> page);
+    List<Cabinet> selCabinetByPage(Page<CabinetVO> page,@Param("name") String name);
 
     List<Cabinet> selByCourierId(String id);
 }

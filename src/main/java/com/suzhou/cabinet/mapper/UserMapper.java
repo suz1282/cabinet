@@ -3,6 +3,7 @@ package com.suzhou.cabinet.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.suzhou.cabinet.entity.Cabinet;
 import com.suzhou.cabinet.entity.User;
 import com.suzhou.cabinet.entity.UserVO;
@@ -27,4 +28,9 @@ public interface UserMapper extends BaseMapper<User> {
     User selUser(@Param("loginUser") User loginUser);
 
     List<UserVO> selUser2Num();
+
+    List<UserVO> selUserList(Page<UserVO> page, @Param("name") String name);
+
+    void updUserDelFlag(String id);
+
 }

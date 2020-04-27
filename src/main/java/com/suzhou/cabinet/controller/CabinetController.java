@@ -48,13 +48,13 @@ public class CabinetController {
     }
 
     @PostMapping("/Cabinet/list")
-    @ApiOperation("快递柜消息")
+    @ApiOperation("快递柜列表")
     public RestResult<Page<CabinetVO>> listCabinet(@RequestBody CabinetVO vo){
         return cabinetService.listCabinet(vo);
     }
 
     @PostMapping("/updateCabinet")
-    @ApiOperation("快递柜消息")
+    @ApiOperation("快递柜更新")
     public RestResult<String> updateCabinet(@RequestBody CabinetVO vo){
         return cabinetService.updateCabinet(vo);
     }
@@ -64,5 +64,6 @@ public class CabinetController {
     public RestResult<List<Cabinet>> getMissions(@PathVariable("id") String id){
         return cabinetService.getMissions(id);
     }
+
 }
 

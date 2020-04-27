@@ -17,4 +17,8 @@ public class UserVO extends Model<User> {
     private String name;
 
     private Integer orderNumber;
+
+    private String type;
+
+    private String createTime;
 }

@@ -1,19 +1,24 @@
 package com.suzhou.cabinet.service;
 
 
-import com.suzhou.cabinet.entity.Order;
-import com.suzhou.cabinet.entity.User;
-import com.suzhou.cabinet.entity.UserVO;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.suzhou.cabinet.entity.*;
 import com.suzhou.cabinet.mapper.OrderMapper;
 import com.suzhou.cabinet.mapper.UserMapper;
 import com.suzhou.cabinet.utils.RestResult;
+import com.xiaoleilu.hutool.util.ObjectUtil;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.suzhou.cabinet.utils.RestResult.fail;
 import static com.suzhou.cabinet.utils.RestResult.success;
@@ -54,5 +59,35 @@ public class UserService {
     public RestResult<List<Order>> getUser2Missions(String id) {
         List<Order> list=orderService.listOrderByUserId(id);
         return success(list);
+    }
+
+    public RestResult<Page<UserVO>> listUser(UserDTO dto) {
+        Page<UserVO> page = new Page<>();//设定Page类
+        page.setCurrent(dto.getCurrentPage() > 0 ? dto.getCurrentPage() : 1);
+        page.setSize(Math.max(dto.getPageSize(), 5));//设置页面大小
+        List<UserVO> userVOS = userMapper.selUserList(page, dto.getName());
+        userVOS.forEach(userVO -> {
+            String type=userVO.getType();
+            if("2".equals(type)){
+                userVO.setType("快递员");
+            }else if("1".equals(type)){
+                userVO.setType("超级管理员");
+            }
+        });
+        page.setRecords(userVOS);
+        return RestResult.success(page);
+    }
+
+    public RestResult<String> addUser(User user) {
+        user.setId(IdWorker.get32UUID());
+        user.setCreateTime(new Date());
+        user.setDelFlag("0");
+        userMapper.insert(user);
+        return success("success");
+    }
+
+    public RestResult<String> removeUser(String id) {
+        userMapper.updUserDelFlag(id);
+        return success("success");
     }
 }

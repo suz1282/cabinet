@@ -16,6 +16,9 @@
     <sql id="Base_Column_List">
         id, name, password, type, del_flag
     </sql>
+    <update id="updUserDelFlag">
+        update user set del_flag='1' where id=#{id}
+    </update>
     <select id="selUser" resultType="com.suzhou.cabinet.entity.User">
         select * from cabinet.user where name=#{loginUser.name} and password=#{loginUser.password}
     </select>
@@ -29,6 +32,13 @@
         and u.type=2
         group by u.id
         order by count(*)
+    </select>
+    <select id="selUserList" resultType="com.suzhou.cabinet.entity.UserVO">
+        select * from user where del_flag=0
+        <if test="name != null and name != ''">
+            and name like concat('%',#{name},'%')
+        </if>
+        order by create_time desc
     </select>
 
 </mapper>

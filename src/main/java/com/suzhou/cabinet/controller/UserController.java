@@ -1,8 +1,11 @@
 package com.suzhou.cabinet.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.base.Utf8;
 import com.suzhou.cabinet.entity.Order;
 import com.suzhou.cabinet.entity.User;
+import com.suzhou.cabinet.entity.UserDTO;
 import com.suzhou.cabinet.entity.UserVO;
 import com.suzhou.cabinet.service.UserService;
 import com.suzhou.cabinet.utils.RestResult;
@@ -11,6 +14,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.embedded.undertow.UndertowWebServer;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -62,6 +66,24 @@ public class UserController {
     @ApiOperation("快递员id查其任务")
     public RestResult<List<Order>> getUser2Mission(@PathVariable("id") String id) {
         return userService.getUser2Missions(id);
+    }
+
+    @PostMapping("/getUsers/list")
+    @ApiOperation("人员列表")
+    public RestResult<Page<UserVO>> listUser(@RequestBody UserDTO dto) {
+        return userService.listUser(dto);
+    }
+
+    @PostMapping("/addUser")
+    @ApiOperation("添加用户")
+    public RestResult<String> addUser(@RequestBody User user) {
+        return userService.addUser(user);
+    }
+
+    @GetMapping("/removeUser/{id}")
+    @ApiOperation("删除用户")
+    public RestResult<String> removeUser(@PathVariable("id") String id) {
+        return userService.removeUser(id);
     }
 
 }
