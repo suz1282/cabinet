@@ -19,6 +19,9 @@
     <update id="updUserDelFlag">
         update user set del_flag='1' where id=#{id}
     </update>
+    <update id="updPassword">
+        update user set password=#{password} where id=#{id}
+    </update>
     <select id="selUser" resultType="com.suzhou.cabinet.entity.User">
         select * from cabinet.user where name=#{loginUser.name} and password=#{loginUser.password}
     </select>

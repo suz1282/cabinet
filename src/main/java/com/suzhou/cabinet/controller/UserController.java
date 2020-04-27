@@ -74,5 +74,11 @@ public class UserController {
         return userService.removeUser(id);
     }
 
+    @GetMapping("/resetPassword/{id}")
+    @ApiOperation("重置用户密码")
+    public RestResult<String> resetPassword(@PathVariable("id") String id) {
+        return userService.resetPassword(id);
+    }
+
 }
 

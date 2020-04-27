@@ -84,4 +84,9 @@ public class UserService {
         userMapper.updUserDelFlag(id);
         return success("success");
     }
+
+    public RestResult<String> resetPassword(String id) {
+        userMapper.updPassword(id,"123456");
+        return success("success");
+    }
 }
