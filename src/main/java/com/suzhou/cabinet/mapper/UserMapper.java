@@ -33,4 +33,8 @@ public interface UserMapper extends BaseMapper<User> {
     void updUserDelFlag(String id);
 
     void updPassword(@Param("id") String id,@Param("password") String s);
+
+    User selByName(String name);
+
+    User selUserByNameAndPassword(@Param("name") String name,@Param("password") String password);
 }

@@ -26,4 +26,8 @@ public interface OrderMapper extends BaseMapper<Order> {
     List<Order> selByCourierId(String id);
 
     List<MainPageBO> selMainPageTable(@Param("start") String startTime,@Param("end") String endTime);
+
+    Integer updByCabinetAndOrderCode(@Param("cabinetId") String cabinetId,@Param("code") String orderCode);
+
+    void updOrderIn(@Param("code") String orderCode,@Param("cid") String cabinetId);
 }

@@ -3,6 +3,7 @@ package com.suzhou.cabinet.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.suzhou.cabinet.entity.Cabinet;
+import com.suzhou.cabinet.entity.dto.UserDTO;
 import com.suzhou.cabinet.entity.vo.CabinetVO;
 import com.suzhou.cabinet.service.CabinetService;
 import com.suzhou.cabinet.utils.RestResult;
@@ -65,5 +66,10 @@ public class CabinetController {
         return cabinetService.getMissions(id);
     }
 
+    @PostMapping("/setCabinet")
+    @ApiOperation("快递员任务显示在地图上")
+    public RestResult<String> setCabinet(@RequestBody UserDTO userDTO){
+        return cabinetService.setCabinet(userDTO);
+    }
 }
 

@@ -18,6 +18,8 @@ public class OrderDTO {
     private Double d;
 
     private String courierId;
+    private String courierName;
+    private String courierPassword;
 
     private String cabinetId;
 

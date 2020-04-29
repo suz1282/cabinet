@@ -2,6 +2,7 @@ package com.suzhou.cabinet.service;
 
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.suzhou.cabinet.entity.*;
 import com.suzhou.cabinet.entity.dto.UserDTO;
@@ -73,6 +74,16 @@ public class UserService {
     }
 
     public RestResult<String> addUser(User user) {
+        if(ObjectUtils.isEmpty(user.getName())){
+            return fail("user name empty","用户名不能为空");
+        }
+        if(ObjectUtils.isEmpty(user.getPassword())){
+            user.setPassword("123456");
+        }
+        User u=userMapper.selByName(user.getName());
+        if(ObjectUtils.isNotEmpty(u)){
+            return fail("user name already exist","该用户已存在");
+        }
         user.setId(IdWorker.get32UUID());
         user.setCreateTime(new Date());
         user.setDelFlag("0");
@@ -88,5 +99,13 @@ public class UserService {
     public RestResult<String> resetPassword(String id) {
         userMapper.updPassword(id,"123456");
         return success("success");
+    }
+
+    public boolean findUser(UserDTO userDTO) {
+        User user=userMapper.selUserByNameAndPassword(userDTO.getName(),userDTO.getPassword());
+        if(ObjectUtils.isNotEmpty(user)){
+            return "1".equals(user.getType());
+        }
+        return false;
     }
 }

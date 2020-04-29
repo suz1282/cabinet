@@ -41,5 +41,17 @@ public class OrderController {
     public RestResult<List<MainPageVO>> login(@RequestBody MainPageDTO mainPageDTO) {
         return orderService.mainPageTable(mainPageDTO);
     }
+
+    @PostMapping("/orderOut")
+    @ApiOperation("取快递")
+    public RestResult<String> orderOut(@RequestBody OrderDTO orderDTO) {
+        return orderService.orderOut(orderDTO);
+    }
+
+    @PostMapping("/orderIn")
+    @ApiOperation("存快递")
+    public RestResult<String> orderIn(@RequestBody OrderDTO orderDTO) {
+        return orderService.orderIn(orderDTO);
+    }
 }
 

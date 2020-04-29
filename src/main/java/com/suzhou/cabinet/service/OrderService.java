@@ -11,6 +11,7 @@ import com.suzhou.cabinet.enums.BoxSize;
 import com.suzhou.cabinet.mapper.BoxMapper;
 import com.suzhou.cabinet.mapper.OrderMapper;
 import com.suzhou.cabinet.mapper.RegionMapper;
+import com.suzhou.cabinet.mapper.UserMapper;
 import com.suzhou.cabinet.utils.RestResult;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class OrderService {
 
     @Autowired
     RegionMapper regionMapper;
+
+    @Autowired
+    UserMapper userMapper;
 
     public List<Order> listOrderByUserId(String id) {
         List<Order> l = orderMapper.selByCourierId(id);
@@ -196,5 +200,29 @@ public class OrderService {
         }
 
         return RestResult.success(mainPageVOS);
+    }
+
+    public RestResult<String> orderOut(OrderDTO orderDTO) {
+        Integer integer = orderMapper.updByCabinetAndOrderCode(orderDTO.getCabinetId(), orderDTO.getOrderCode());
+        if(integer>=1){
+            return RestResult.success("success");
+        }
+        return RestResult.fail("error","取件失败");
+    }
+
+    public RestResult<String> orderIn(OrderDTO orderDTO) {
+        boolean b = checkUser2(orderDTO);
+        if(b){//快递员存在
+            orderMapper.updOrderIn(orderDTO.getOrderCode(),orderDTO.getCabinetId());
+        }
+        return RestResult.success("success");
+    }
+
+    private boolean checkUser2(OrderDTO orderDTO) {
+        User user = userMapper.selUserByNameAndPassword(orderDTO.getCourierName(), orderDTO.getCourierPassword());
+        if (!ObjectUtils.isEmpty(user)){
+            return "2".equals(user.getType());
+        }
+        return false;
     }
 }

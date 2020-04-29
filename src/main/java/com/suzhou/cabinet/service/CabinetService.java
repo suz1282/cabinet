@@ -4,6 +4,7 @@ package com.suzhou.cabinet.service;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.suzhou.cabinet.entity.*;
+import com.suzhou.cabinet.entity.dto.UserDTO;
 import com.suzhou.cabinet.entity.vo.CabinetVO;
 import com.suzhou.cabinet.mapper.CabinetMapper;
 import com.suzhou.cabinet.utils.BaiDuMapUtil;
@@ -37,6 +38,10 @@ public class CabinetService {
 
     @Autowired
     BoxService boxService;
+
+    @Autowired
+    UserService userService;
+
 
     public RestResult<String> addCabinet(Cabinet cabinet) {
         cabinet.setId(IdWorker.get32UUID());
@@ -115,5 +120,13 @@ public class CabinetService {
 
     public RestResult<Page<Cabinet>> getCabinetByName(String cabinetName) {
         return null;
+    }
+
+    public RestResult<String> setCabinet(UserDTO userDTO) {
+        boolean b=userService.findUser(userDTO);
+        if (b){
+            return RestResult.success("success");
+        }
+        return RestResult.fail("user is not correct","不正确的人员");
     }
 }

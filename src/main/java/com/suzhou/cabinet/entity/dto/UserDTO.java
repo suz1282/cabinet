@@ -13,5 +13,7 @@ public class UserDTO {
     private Integer pageSize;
     private String id;
     private String name;
+    private String password;
     private String type;
+    private String cabinetId;
 }
